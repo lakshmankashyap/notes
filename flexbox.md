@@ -67,3 +67,9 @@ Cross axis : from top to bottom
 * flex : shorthand property for the last three properties
     * 0 1 auto
     * ...
+    
+### Difference between space-between and space-evenly1 - space-evenly :  the items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+
+* space-evenly : the items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+
+* space-between : very similar to space-evenly  in that the flex-items are evenly distributed within the alignment container along the main axis; however, the first and last flex-items are flushed (pressed without any space) to the main-start edge and main-end edge respectively.
