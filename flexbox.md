@@ -68,7 +68,7 @@ Cross axis : from top to bottom
     * 0 1 auto
     * ...
     
-### Difference between space-between and space-evenly1 - space-evenly :  the items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
+### Difference between space-between and space-evenly
 
 * space-evenly : the items are evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.
 
