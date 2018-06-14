@@ -30,11 +30,21 @@ The big state in React above becomes this state :
 
 ## Actions
 
+<img src="actions.png" width="500px"/>
+
 ## Reducers
+
+<img src="reducers.png" width="500px"/>
 
 ## Store and provider
 
+<img src="store.png" width="500px"/>
+
 ## Connect
+
+<img src="connect.png" width="500px"/>
+
+<img src="connect2.png" width="500px"/>
 
 There are two kind of components : **containers** and **components**
 
@@ -44,3 +54,4 @@ Containers are smart components. They know about the state of the app.
 
 A middleware listens for actions. It's a tunnel that actions go through and depending on the middleware, it can modify the action or trigger another one before hitting the reducer.
 
+<img src="middleware.png" width="500px"/>
