@@ -23,12 +23,14 @@ We're simply just removing the imports from the top and importing them only when
 
 <img src="react_perf.png" width="500px"/>
 
-Then you can know what's going on performance-wise
+Then we can know what's going on performance-wise
 
 <img src="react_console.png" width="500px"/>
 
-Whenever you want to know which components render unnecessarily 
+Whenever we want to know which components render unnecessarily 
 
 <img src="highlight.png" width="500px"/>
 
-To avoid it, you can use `shouldComponentUpdate` to control it. But we shouldn't overuse it because it affects performance. As always, we need to know if it's valuable or not.
+To avoid it, we can use `shouldComponentUpdate` to control it. But we shouldn't overuse it because it affects performance. As always, we need to know if it's valuable or not.
+
+We can also use this tool to better know why a component have updated : [why did you update](https://github.com/maicki/why-did-you-update)
