@@ -18,3 +18,17 @@ We're simply just removing the imports from the top and importing them only when
 - https://reactjs.org/docs/code-splitting.html
 - https://github.com/jamiebuilds/react-loadable
 - https://webpack.js.org/guides/code-splitting/
+
+### Optimizing React
+
+<img src="react_perf.png" width="500px"/>
+
+Then you can know what's going on performance-wise
+
+<img src="react_console.png" width="500px"/>
+
+Whenever you want to know which components render unnecessarily 
+
+<img src="highlight.png" width="500px"/>
+
+To avoid it, you can use `shouldComponentUpdate` to control it. But we shouldn't overuse it because it affects performance. As always, we need to know if it's valuable or not.
