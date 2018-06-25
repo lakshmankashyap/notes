@@ -34,3 +34,11 @@ Whenever we want to know which components render unnecessarily
 To avoid it, we can use `shouldComponentUpdate` to control it. But we shouldn't overuse it because it affects performance. As always, we need to know if it's valuable or not.
 
 We can also use this tool to better know why a component have updated : [why did you update](https://github.com/maicki/why-did-you-update)
+
+Beware: React `setState` is **asynchronous**!
+
+`setState()` does not immediately mutate `this.state` but creates a pending state transition. Accessing `this.state` after calling this method can potentially return the existing value. There is no guarantee of synchronous operation of calls to `setState` and calls may be batched for performance gains.
+
+**Review :**
+
+<img src="review.png" width="500px"/>
