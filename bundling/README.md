@@ -22,6 +22,7 @@ There's two tools :
 All the javascript code is contained in a `bundle.js` file.
 
 <img src="webpack1.png" width="500px"/>
+<br/>
 <img src="webpack2.png" width="500px"/>
 
 Here is all the dependencies you need :
@@ -50,3 +51,5 @@ We can also use the `babelrc` file :
 Parcel is really easy to use compared to webpack.
 
 We just have to add the package `parcel-bundler` and then use `parcel index.html`. It will automatically bundle the files.
+
+<img src="parcel.png" width="500px"/>
