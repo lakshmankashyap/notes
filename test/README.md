@@ -43,8 +43,11 @@ We can also use [enzyme](http://airbnb.io/enzyme/).
   "devDependencies": {
     "jest": "^23.2.0"
   }
+  ...
 }
 ```
+
+#### Synchronous
 
 **script.js**
 
@@ -101,3 +104,92 @@ describe('googleSearch', () => {
 })
 ```
 
+#### Asynchronous
+
+**script2.js**
+
+```js
+const fetch = require('node-fetch');
+
+// We use dependency injection here
+// One of the major advantages of dependency injection is that it can make testing lots easier. 
+const getPeoplePromise = fetch => {
+  return fetch('https://swapi.co/api/people')
+    .then(response => response.json())
+    .then(data => {
+      return {
+        count: data.count,
+        results: data.results
+      };
+    })
+}
+
+// Async await version
+
+const getPeople = async fetch => {
+  const getRequest = await fetch('https://swapi.co/api/people');
+  const data = await getRequest.json();
+  return {
+    count: data.count,
+    results: data.results
+  };
+}
+
+module.exports = {
+  getPeoplePromise,
+  getPeople
+};
+```
+
+**script2.test.js**
+
+```js
+const fetch = require('node-fetch');
+const swapi = require('./script2');
+
+// The done tells jest to wait until the done callback is called
+it('calls swapi to get people', (done) => {
+  expect.assertions(1); // Won't work without the done parameter or return statement
+  swapi.getPeople(fetch).then(data => {
+    expect(data.count).toEqual(87);
+    done();
+  })
+})
+
+// OR we can just use return
+it('calls swapi to get people', () => {
+  expect.assertions(1);
+  return swapi.getPeople(fetch).then(data => {
+    expect(data.count).toEqual(87);
+  })
+})
+
+it('calls swapi to get people with a promise', () => {
+  // It’s a good practice to specify a number of expected assertions in async tests, 
+  // so the test will fail if your assertions weren’t called at all.
+  expect.assertions(2);
+  return swapi.getPeoplePromise(fetch).then(data => {
+    expect(data.count).toEqual(87);
+    expect(data.results.length).toBeGreaterThan(2);
+  })
+})
+
+// mock the fetch call to avoid long running asynchronous calls
+it('getPeople returns count and results', () => {
+  const mockFetch = jest.fn()
+    .mockReturnValue(Promise.resolve({ // We're faking asynchronous call
+      json: () => Promise.resolve({
+        count: 87,
+        results: [0, 1, 2, 3, 4, 5]
+      })
+    }))
+
+    expect.assertions(4);
+    return swapi.getPeoplePromise(mockFetch).then(data => {
+      expect(mockFetch.mock.calls.length).toBe(1);
+      expect(mockFetch).toBeCalledWith('https://swapi.co/api/people');
+      expect(data.count).toEqual(87);
+      expect(data.results.length).toBeGreaterThan(2);
+    })
+})
+```
