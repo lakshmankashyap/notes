@@ -152,4 +152,39 @@ let x = 3;
 let confused: string | number = "hello";
 ```
 
-### Definitely Typed
+### DefinitelyTyped
+
+#### Declaration files
+
+The concept of declaration files is analogous to the concept of header file found in C/C++.
+
+Declaration files are a way to describe the shape of JavaScript values to the TypeScript compiler. In other words : it is a mechanism for supplying type information about JavaScript to TypeScript.
+
+They end with the `d.ts` extension.
+
+#### How to get these types ?
+
+With [DefinitelyTyped](https://definitelytyped.org/) ! It is a simple repository on GitHub that hosts TypeScript declaration files for all your favorite packages.
+
+So to work with 3rd party libraries, we would do for example :
+
+```
+npm install --save @types/jquery
+npm install --save @types/express
+```
+
+#### How to use them ?
+
+**Before TypeScript 2**
+
+```
+/// <reference path="path_to_declaration_file">
+```
+
+**After TypeScript 2**
+
+- TypeScript automatically knows where to find the declaration files.
+- Even though triple slash directive is not needed, there is also a form that could be used. It takes the form of `/// <reference types="name_of_library">`
+- `typeRoots` and `types`ﬂ are the two properties of `tsconfig.json` that can be used to configure the behavior of the type declaration resolution.
+
+Learn more [here](http://www.geekabyte.io/2017/10/understanding-declaration-files-in.html)
