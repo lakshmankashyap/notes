@@ -188,3 +188,8 @@ npm install --save @types/express
 - `typeRoots` and `types`ﬂ are the two properties of `tsconfig.json` that can be used to configure the behavior of the type declaration resolution.
 
 Learn more [here](http://www.geekabyte.io/2017/10/understanding-declaration-files-in.html)
+
+#### Integrating TypeScript to React
+
+- [Create React App TypeScript](https://github.com/wmonk/create-react-app-typescript)
+- [Robofriends TypeScript](https://github.com/aneagoie/robofriends-typescript-completed)
