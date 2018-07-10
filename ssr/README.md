@@ -12,6 +12,121 @@ When developers talk about client-side rendering, they’re talking about render
 
 <img src="ssr_pros_cons.png" width="500px"/>
 
-## Resources 
+## Server side rendering in React
+
+We use the method `renderToString` from `react-dom`.
+
+All we're doing is converting our React app to string.
+
+We render the app on the server with robots already created. So it will appear a lot faster.
+
+We need React on the browser and the server.
+
+We use these methods :
+
+<img src="react_dom.png" width="500px"/>
+
+`ReactDOM.hydrate()` is like calling the render method except it preserve markup and only attach event listeners, or any JS functionalities. Otherwise, there will be just text displayed.
+
+To sum up, `hydrating` makes the page interactive.
+
+`ReactDOMServer.renderToNodeStream` : similar to `renderToString` except it uses nodes stream that makes the process faster.
+
+## Why CSR has a low SEO potential
+
+We just render a simple HTML file. When the crawlers programs look at the webpages, it only sees something like that :
+
+`<div id="root"></div>`
+
+We can improve the SEO by putting a `meta` description tag but it won't be enough. Furthermore, if we're doing AJAX requests at the initial load, the rendering will be slower.
+
+So if we need a website that depends on SEO (hotel companies for example), we need SSR because the content is presented before we actually get it in the view.
+
+## SSR React libraries
+
+- [Gatsby](https://www.gatsbyjs.org/) : Great for static pages, documentations. React documentation uses Gatsby !
+- [Next](https://nextjs.org/learn/) : For apps beyond static pages. Easy to use and one of the best implementation of SSR. They include code splitting, SEO optimization, ...
+
+## Setting up Next.js
+
+Includes :
+
+- Routing
+- Webpack set up
+- Use different types of CSS
+- Support for TypeScript
+- etc.
+
+We need a `pages` folder at the root.
+
+### DOM differences
+
+#### Client-side
+
+<img src="robofriends_dom.png" width=500px>
+
+#### Server-side
+
+<img src="next_dom.png" width=500px>
+
+### Code
+
+`package.json`
+
+```json
+{
+  "name": "next-ssr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "next"
+  },
+  "dependencies": {
+    "next": "^6.1.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  }
+}
+```
+
+`pages/index.js`
+
+```js
+// Allows to do client-side routing (check the network tab in Chrome)
+import Link from "next/link";
+
+const Index = () => (
+  <div>
+    <h1>SSR Magician</h1>
+    <Link href="/about">
+      <button>About</button>
+    </Link>
+    {/* <a href="/about">About</a> */}
+  </div>
+);
+
+export default Index;
+```
+
+`pages/about.js`
+
+```js
+import Link from "next/link";
+
+const About = () => (
+  <div style={{ fontSize: "20px", color: "blue" }}>
+    <h1>About</h1>
+    <Link href="/">
+      <button>Back</button>
+    </Link>
+    <p>I was a magician once</p>
+  </div>
+);
+
+export default About;
+```
+
+## Resources
 
 [Client-side rendering vs Server-side rendering](https://medium.freecodecamp.org/what-exactly-is-client-side-rendering-and-hows-it-different-from-server-side-rendering-bd5c786b340d)
