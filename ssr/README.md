@@ -59,17 +59,17 @@ Includes :
 
 We need a `pages` folder at the root.
 
-### DOM differences
+## DOM differences
 
-#### Client-side
+### Client-side
 
 <img src="robofriends_dom.png" width=500px>
 
-#### Server-side
+### Server-side
 
 <img src="next_dom.png" width=500px>
 
-### Code
+## Basic Next.js app
 
 `package.json`
 
@@ -90,17 +90,31 @@ We need a `pages` folder at the root.
 }
 ```
 
+`pages/Image.js` 
+
+```js
+const Image = () => (
+  <img src="https://pbs.twimg.com/media/DfkhrO1XUAEYkdw.jpg"/>
+);
+
+export default Image;
+```
+
 `pages/index.js`
 
 ```js
 // Allows to do client-side routing (check the network tab in Chrome)
 import Link from "next/link";
+import Robots from "./robots";
 
 const Index = () => (
   <div>
     <h1>SSR Magician</h1>
     <Link href="/about">
       <button>About</button>
+    </Link>
+    <Link href="/robots">
+      <button>Robots</button>
     </Link>
     {/* <a href="/about">About</a> */}
   </div>
@@ -113,6 +127,7 @@ export default Index;
 
 ```js
 import Link from "next/link";
+import Image from "../components/Image";
 
 const About = () => (
   <div style={{ fontSize: "20px", color: "blue" }}>
@@ -120,6 +135,7 @@ const About = () => (
     <Link href="/">
       <button>Back</button>
     </Link>
+    <Image />
     <p>I was a magician once</p>
   </div>
 );
@@ -127,6 +143,86 @@ const About = () => (
 export default About;
 ```
 
+`pages/robots.js`
+
+```js
+import Link from "next/link";
+import fetch from "isomorphic-unfetch";
+
+const Robots = (props) => (
+  <div>
+    <h1>Robots</h1>
+    <Link href="/">
+      <button>Home</button>
+    </Link>
+    <div>
+      {
+        props.robots.map(robot => (
+          <li key={robot.id}>
+          <Link href={`robot/${robot.id}`}>
+            <a>{robot.name}</a>
+          </Link>
+          </li>
+        ))
+      }
+    </div>
+  </div>
+);
+
+Robots.getInitialProps = async () => {
+  const res = await fetch('https://jsonplaceholder.typicode.com/users');
+  const data = await res.json()
+  return {
+    robots: data
+  }
+}
+
+export default Robots;
+```
+
+## Server-side vs client-side routing
+
+Routing is the mechanism by which requests are connected to some code. It is essentially the way you navigate through a website or web-application. By clicking on a link, the URL changes which provides the user with some new data or a new webpage.
+
+A server-side request causes the whole page to refresh. This is because a new GET request is sent to the server which responds with a new document, completely discarding the old page altogether.
+
+**Pros of server-side routing :**
+- Only request the data that's needed
+- Optimised for SEO (it has been a standard)
+
+**Cons of server-side routing :**
+- Full page refresh
+- Can be slow if very large dataset
+
+A client-side route happens when the route is handled internally by the JavaScript that is loaded on the page. The URL changes but the request to the server is prevented.
+
+It is important to note that the whole page won’t refresh when using client-side routing. There are just some elements inside the application that will change.
+
+**Pros of client-side routing :**
+- Whole web app needs to be loaded on te first request : initial loading time is slow
+- Extra library
+- SEO less optimized
+
+**Cons of client-side routing :**
+- Full page refresh
+- Can be slow if very large dataset
+
+## Rendering charts
+
+- Regular JS :
+
+<img src="chart-ssr-1.png" width="500px"/>
+
+- Server side rendering :
+
+<img src="chart-ssr-2.png" width="500px"/>
+
+- Progressive rendering :
+
+<img src="chart-ssr-3.png" width="500px"/>
+
 ## Resources
 
-[Client-side rendering vs Server-side rendering](https://medium.freecodecamp.org/what-exactly-is-client-side-rendering-and-hows-it-different-from-server-side-rendering-bd5c786b340d)
+- [Client-side rendering vs Server-side rendering](https://medium.freecodecamp.org/what-exactly-is-client-side-rendering-and-hows-it-different-from-server-side-rendering-bd5c786b340d)
+- [Server-side vs client-side routing](https://medium.com/@wilbo/server-side-vs-client-side-routing-71d710e9227f) 
+- [Now](https://zeit.co/now)
