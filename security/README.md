@@ -67,3 +67,41 @@ Since NPM 6, we can use `npm audit`.
 
 It allows us to recursively analyze your dependency trees to identify specifically what’s insecure — so we can swap in a new version or find a safer alternate dependency.
 
+## Logging
+
+Logging is about gathering user informations.
+
+Big security issue : insufficient loging ! Having good logging means that we are able to detect issues quickly and prevent any bad things that might be happening.
+
+
+### Morgan
+
+`npm install morgan` : HTTP request logger
+
+We can use it in an Express app : `app.use(morgan('tiny'))` or `app.use(morgan('combined'))` (more informations)
+
+### Winston
+
+- `npm install winston` : "a logger for just about everything", winston is like `console.log` but with a lot of features
+
+#### Usage
+
+- `winston.log('info', 'hello')`
+- `winston.log('info', 'user input:', userInput)`
+- `winston.error('fatal error')`
+
+We should log as much informations as we can but we shouldn't log personal informations. Never log system errors on the front end.
+
+
+## HTTPS everywhere
+
+HTTPS : SSL/TLS certificates
+
+While HTTP is a plain text protocol, so it's not secure at all to transmit passwords over this protocol, we must use HTTPS.
+
+### Solutions
+
+- [Let's Encrypt](https://letsencrypt.org/)
+- [Cloudflare](https://www.cloudflare.com/) : if we host our files within cloudflare, we already have HTTPS. They also have DDOS protection.
+
+## XSS & CSRF
