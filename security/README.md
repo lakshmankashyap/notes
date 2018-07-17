@@ -201,3 +201,41 @@ var corsOptions = {
 
 app.use(cors(corsOptions))
 ```
+
+## Data management
+
+- Always have back ups.
+- Limit sensitive data exposure
+- Encryption : use [bcrypt](https://www.npmjs.com/package/bcrypt) to encrypt all sensitive data, mostly passwords !
+
+```js
+const userSchema = new Schema({
+  username: String,
+  password: String,
+  isModerator: false
+});
+
+userSchema.pre('save', function (next) {
+  const user = this;
+
+  if (!user.isModified('password')) return next();
+
+  const salt = bcrypt.genSaltSync(10);
+  user.password = bcrypt.hashSync(user.password, salt);
+
+  return next();
+});
+
+userSchema.methods.validPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+}
+
+export default mongoose.model('User', userSchema);
+```
+
+We must not trust anyone and be careful with authentication !
+
+## Additional resources
+
+- [Watch your hack](https://watchyourhack.com/)
+- [hacksplaining](https://www.hacksplaining.com/lessons)
