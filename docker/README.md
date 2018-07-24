@@ -10,11 +10,41 @@ For a visual explanation, think of the shipping containers used for intermodal s
 
 Containers are the ready applications created from Docker Images or you can say a Docker Container is a running instance of a Docker Image and they hold the entire package needed to run the application. This happens to be the ultimate utility of Docker.
 
+A Docker container consists of
+
+- A Docker image
+- An execution environment
+- A standard set of instructions
+
 ## What is Docker Image?
 
 Docker Image can be compared to a template which is used to create Docker Containers. They are the building blocks of a Docker Container. These Docker Images are created using the build command.
 
-## Images
+## Dockerfile
+
+Build an image file : `Dockerfile` 
+
+```
+FROM node:8.11.1 # Grab the node carbon image and use it ()
+
+CMD ["/bin/bash"] # CMD stands for command and tells us what to run in the container
+```
+
+### Commands
+
+- Build : `docker build -t awesomecontainer .`
+- Run our container : `docker run -it awesomecontainer` (`-it` allows us to go "inside" an environment)
+- Running in the background : `docker run -it -d awesomecontainer`
+- List processes : `docker ps`
+- Go back to the container : `docker exec -it [ID] bash`
+- Stop the container : `docker stop [ID]`
+- Exit the container : `exit`
+
+We need to create the Dockerfile and run commands from the root directory.
+
+**Warning :** It's important to check our containers to make sure our versions are right and all work.
+
+## Pictures
 
 Docker vs VM
 
@@ -31,8 +61,6 @@ Development
 Production
 
 <img src="production.png" width="500px"/>
-
-
 
 ## Resources
 
