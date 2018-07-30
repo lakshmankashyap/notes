@@ -62,6 +62,22 @@ Production
 
 <img src="production.png" width="500px"/>
 
+## Dockerfile
+
+```sh
+FROM node:8.11.1
+WORKDIR /usr/src/smart-brain-api
+COPY ./ ./
+RUN npm install
+CMD ["/bin/bash"]
+```
+
+- `WORKDIR` : What's our working directory
+- `COPY ./ ./` : Copy everything in our current container
+- A dockerfile can only have one `CMD` but multiple `RUN`
+
+The container doesn't really know of the machine we have. So we have to use port forwarding to access for example `localhost:3000`
+
 ## Resources
 
 - [Docker Hub](https://hub.docker.com/)
