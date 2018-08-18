@@ -191,6 +191,8 @@ BEGIN TRANSACTION;
 
 INSERT INTO users (name, email, entries, joined) values('Jessie', 'jessie@gmail.com', 5, '2018-01-01');
 INSERT INTO login (hash, email) values('HASH_TO_ADD_HERE', 'jessie@gmail.com');
+
+COMMIT;
 ```
 
 5. Add a `deploy_schemas` sql file :
